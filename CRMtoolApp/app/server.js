@@ -1,6 +1,6 @@
 //BASE SETUP
 //==================
-
+var User = require('../models/user');
 //CALL THE PACKAGES --------------------------------
 var express = require('express'),
     bodyParser = require('body-parser'),
