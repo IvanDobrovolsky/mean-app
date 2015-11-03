@@ -66,7 +66,7 @@ adminRouter.get('/users/:name', function (req, res) {
 app.use('/admin', adminRouter);
 
 
-
+//Login route
 app.route('/login')
     //Show the form (GET http://localhost:1337/login)
     .get(function (req, res) {
@@ -78,6 +78,16 @@ app.route('/login')
         console.log("Processing...");
         res.send("Processing the login form!")
     });
+
+
+
+
+//Working with a database
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb:l//localhost/db_name');
+
+
 
 
 //Start the server
