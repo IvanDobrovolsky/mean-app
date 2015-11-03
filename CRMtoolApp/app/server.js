@@ -135,7 +135,18 @@ apiRouter.route('/users/:user_id')
                res.json({messae: 'User updated!'});
            })
        })
+    })
+    // Delete the user with this id
+    // (accessed at DELETE http://localhost:8080/api/users/:user_id)
+    .delete(function (req, res) {
+        User.remove({_id: req.params.user_id}, function (err, user) {
+            if(err) res.send(err);
+
+            res.json({message: 'Successfully deleted'});
+        })
     });
+
+
 
 //REGISTER OUR ROUTES ---------------------------------
 //All of our routes will be prefixed with /api
