@@ -105,6 +105,16 @@ apiRouter.route('/users')
     });
 
 
+apiRouter.route('/users/:user_id')
+    //Get the user with that id
+    //accessed at GET http://localhost:8080/api/users/:user_id
+    .get(function (req, res) {
+        User.findById(req.params.user_id, function (err, user) {
+            if(err) res.send(err);
+
+            res.json(user);
+        })
+    });
 
 //REGISTER OUR ROUTES ---------------------------------
 //All of our routes will be prefixed with /api
