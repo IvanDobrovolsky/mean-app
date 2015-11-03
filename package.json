@@ -1,4 +1,9 @@
 {
-  "name": "mean_machine tutorial",
-  "version": "0.0.1"
+  "name": "mean_machine_tutorial",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "^4.13.3",
+    "fs": "0.0.2",
+    "http": "0.0.0"
+  }
 }
