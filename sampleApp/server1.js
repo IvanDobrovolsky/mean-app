@@ -19,7 +19,6 @@ http.createServer(function (req, res) {
     //Send the index.html file to our user
     readStrem.pipe(res);
 
-
 }).listen(1337);
 
 //Tell ourselves what's happening
