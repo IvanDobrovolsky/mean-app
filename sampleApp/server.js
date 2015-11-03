@@ -9,11 +9,17 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+
+
+
+
+
+
+
 //Create routes for the admin section
 
 //Get an instance of the router
 var adminRouter = express.Router();
-
 
 //Route Middleware that will happen on every request
 adminRouter.use(function (req, res, next) {
@@ -24,7 +30,6 @@ adminRouter.use(function (req, res, next) {
     //Continue doing what we were doing and go to the router
     next();
 });
-
 
 
 //Admin main page. The dashboard (http://localhost:1337/admin)
@@ -40,6 +45,10 @@ adminRouter.get('/users', function (req, res) {
 //Posts page (http://localhost:1337/admin/posts)
 adminRouter.get('/posts', function (req, res) {
     res.send("I show all the posts!")
+});
+
+adminRouter.get('/users/:name', function (req, res) {
+    res.send('Hello ' + req.params.name + '!');
 });
 
 //Apply the routes to our application
