@@ -114,6 +114,7 @@ apiRouter.route('/users/:user_id')
 
             res.json(user);
         })
+<<<<<<< HEAD
     })
     //Update the user with this id
     //(accessed at PUT http://localhost:8080/api/users/:user_id)
@@ -147,6 +148,9 @@ apiRouter.route('/users/:user_id')
     });
 
 
+=======
+    });
+>>>>>>> 1a0d8127fa675c3a9b3f028f238061a3d8cce3ae
 
 //REGISTER OUR ROUTES ---------------------------------
 //All of our routes will be prefixed with /api
