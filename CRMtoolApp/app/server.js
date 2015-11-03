@@ -11,6 +11,10 @@ var express = require('express'),
 var app = express(), port = process.env.PORT || 8080;
 
 
+// Connect to our database (hosted on modulus.io)
+mongoose.connect('mongodb://node:noder@novus.modulusmongo.net:27017/Iganiq8o');
+
+
 //APP CONFIGURATION ---------------------------------
 //Use body parser so we can grab information from POST requests
 app.use(bodyParser.urlencoded({extended: true}));
@@ -53,7 +57,6 @@ apiRouter.use(function (req, res, next) {
 });
 
 
-
 //Test route to make sure everything is working
 //accessed at GET http://localhost:8080/api
 apiRouter.get('/', function (req, res) {
@@ -61,7 +64,38 @@ apiRouter.get('/', function (req, res) {
 });
 
 
-//More routes for our API will happen here
+//On routes that end in /users
+//--------------------------------------------------------------
+
+apiRouter.route('/users')
+
+    //create a user (accessed at POST http://localhost:8080/api/users)
+    .post(function (req, res) {
+
+        //Create a new instance of the User model
+        var user = new User();
+
+        //Set the users information(comes from the request)
+        user.name = req.body.name;
+        user.username = req.body.username;
+        user.password = req.body.password;
+
+        //Save the user and check for errors
+        user.save(function (err) {
+            if(err) {
+                //Duplicate entry
+                if(err.code == 11000){
+                    return res.json({success: false, message: 'A user with that username already exists.'});
+                }else{
+                    return res.send(err);
+                }
+            }
+
+            res.json({message: 'User created!'});
+        })
+    });
+
+
 
 //REGISTER OUR ROUTES ---------------------------------
 //All of our routes will be prefixed with /api
