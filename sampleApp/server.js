@@ -31,7 +31,6 @@ adminRouter.use(function (req, res, next) {
     next();
 });
 
-
 //Admin main page. The dashboard (http://localhost:1337/admin)
 adminRouter.get('/', function (req, res) {
     res.send("I am the dashboard!");
@@ -45,6 +44,23 @@ adminRouter.get('/users', function (req, res) {
 //Posts page (http://localhost:1337/admin/posts)
 adminRouter.get('/posts', function (req, res) {
     res.send("I show all the posts!")
+});
+
+
+//Route middleware to validate :name
+adminRouter.param('name', function (req, res, next, name) {
+    //Do validation on name here
+
+    //validation
+
+    //Log something so we know its working
+    console.log("Doing name validation on " + name);
+
+    //Once validation is done save the new item in the req
+    req.name = name;
+
+    //Go to the next thing
+    next();
 });
 
 adminRouter.get('/users/:name', function (req, res) {
