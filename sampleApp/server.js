@@ -11,11 +11,6 @@ app.get('/', function (req, res) {
 
 
 
-
-
-
-
-
 //Create routes for the admin section
 
 //Get an instance of the router
@@ -72,7 +67,17 @@ app.use('/admin', adminRouter);
 
 
 
+app.route('/login')
+    //Show the form (GET http://localhost:1337/login)
+    .get(function (req, res) {
+        res.send("This is the login form");
+    })
 
+    //Process the form (POST http://localhost:1337)
+    .post(function (req, res) {
+        console.log("Processing...");
+        res.send("Processing the login form!")
+    });
 
 
 //Start the server
