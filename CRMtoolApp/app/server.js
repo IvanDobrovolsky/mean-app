@@ -5,10 +5,14 @@ var User = require('../models/user');
 var express = require('express'),
     bodyParser = require('body-parser'),
     morgan = require('morgan'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    jwt = require('jsonwebtoken');
 
 //Initialize the app and a port to be running at
 var app = express(), port = process.env.PORT || 8080;
+
+
+var superSecret = 'ilovelevi9';
 
 
 // Connect to our database (hosted on modulus.io)
@@ -42,6 +46,54 @@ app.get('/', function (req, res) {
 
 //Get instance of the express router
 var apiRouter = express.Router();
+
+
+//Route for the authenticating users
+apiRouter.post('/authenticate', function (req, res) {
+
+    //Find the user
+    //Select the name, username, and password explicitly
+    User.findOne({
+        username: req.body.username
+    }).select('name username password').exec(function (err, user) {
+
+        if(err) throw err;
+
+        //No user with that username was found
+        if(!user){
+            res.json({
+                success: false,
+                message: 'Authentication failed. User not found.'
+            });
+        }else if(user){
+            //Check if password matches
+            var validPassword = user.comparePassword(req.body.password);
+            if(!validPassword){
+                res.json({
+                    success: false,
+                    message: 'Authentication failed: Wrong password!'
+                });
+            }else{
+                //If user is found and password is right
+                //Create a token
+                var token = jwt.sign({
+                    name: user.name,
+                    username: user.name
+                }, superSecret, {
+                    expiresInMinutes: 1440 //Expires in 24 hours
+                });
+
+                //Return the information including token as JSON
+                res.json({
+                    success: true,
+                    message: 'Enjoy your token!',
+                    token: token
+                });
+            }
+        }
+    })
+});
+
 
 //Middleware to use for all requests
 apiRouter.use(function (req, res, next) {
@@ -114,7 +166,6 @@ apiRouter.route('/users/:user_id')
 
             res.json(user);
         })
-<<<<<<< HEAD
     })
     //Update the user with this id
     //(accessed at PUT http://localhost:8080/api/users/:user_id)
@@ -148,9 +199,6 @@ apiRouter.route('/users/:user_id')
     });
 
 
-=======
-    });
->>>>>>> 1a0d8127fa675c3a9b3f028f238061a3d8cce3ae
 
 //REGISTER OUR ROUTES ---------------------------------
 //All of our routes will be prefixed with /api
