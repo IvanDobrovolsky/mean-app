@@ -95,17 +95,36 @@ apiRouter.post('/authenticate', function (req, res) {
 });
 
 
-//Middleware to use for all requests
+//Router middleware to verify a token
 apiRouter.use(function (req, res, next) {
-    //Do logging
-    console.log('Somebody just came to our app!');
 
-    //We will add more to the middleware in Chapter 10
-    //this is where we will authenticate users
+    //Check header or url parameters or post parameters for token
+    var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
+    //Decode token
+    if(token){
+        //Verifies secret and checks exp
+        jwt.verify(token, superSecret, function (err, decoded) {
+            if(err){
+                return res.status(403).send({
+                    success: false,
+                    message: 'Failed to authenticate token.'
+                });
+            }else{
+                //If everything is good, save the request for use in other routes
+                req.decoded = decoded;
 
-    //Make sure we go to the next routes and don't stop here
-    next();
+                next();
+            }
+        })
+    } else {
+        //If there is no token
+        //return an http response of 403 (access forbidden) and an error message
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided'
+        })
+    }
 });
 
 
@@ -184,7 +203,7 @@ apiRouter.route('/users/:user_id')
                if(err) res.send(err);
 
                //Return a message
-               res.json({messae: 'User updated!'});
+               res.json({message: 'User updated!'});
            })
        })
     })
@@ -198,7 +217,10 @@ apiRouter.route('/users/:user_id')
         })
     });
 
-
+//API endpoint to get user information
+apiRouter.get('/me', function (req, res) {
+    res.send(req.decoded)
+});
 
 //REGISTER OUR ROUTES ---------------------------------
 //All of our routes will be prefixed with /api
