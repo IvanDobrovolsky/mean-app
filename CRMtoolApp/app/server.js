@@ -8,7 +8,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     jwt = require('jsonwebtoken');
 
-//Initialize the app and a port to be running at
+//Initialize the js and a port to be running at
 var app = express(), port = process.env.PORT || 8080;
 
 
@@ -24,7 +24,7 @@ mongoose.connect('mongodb://node:noder@novus.modulusmongo.net:27017/Iganiq8o');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-//Configure our app to handle CORS requests
+//Configure our js to handle CORS requests
 app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", '*');
     res.setHeader("Access-Control-Allow-Methods", 'GET, POST');
