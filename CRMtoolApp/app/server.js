@@ -91,7 +91,7 @@ apiRouter.post('/authenticate', function (req, res) {
                 });
             }
         }
-    })
+    });
 });
 
 

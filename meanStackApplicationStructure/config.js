@@ -1,3 +1,5 @@
-/**
- * Created by geek on 09.11.15.
- */
+module.exports = {
+    'port': process.env.PORT || 8080,
+    'database': 'mongodb://node:noder@novus.modulusmongo.net:27017/Iganiq8o',
+    'secret': 'ilovemean'
+};

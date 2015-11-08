@@ -2,12 +2,13 @@
   "name": "mean_machine_tutorial",
   "version": "0.0.1",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.9.3",
     "express": "^4.13.3",
     "fs": "0.0.2",
     "http": "0.0.0",
-    "morgan": "~1.5.0",
-    "body-parser": "~1.9.3",
+    "jsonwebtoken": "^5.4.1",
     "mongoose": "~3.8.19",
-    "bcrypt-nodejs": "0.0.3"
+    "morgan": "~1.5.0"
   }
 }
