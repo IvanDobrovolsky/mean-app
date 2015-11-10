@@ -1,23 +1,15 @@
-(function () {
-    "use strict";
+angular.module('userApp', [
+    'ngAnimate', 'app.routes',
+    'authService',
+    'mainCtrl',
+    'userCtrl',
+    'userService'
+])
 
-    var app = angular.module('main', ["user"]);
+// application configuration to integrate token into requests
+.config(function($httpProvider) {
 
-    app.controller('main', MainController);
+	// attach our auth interceptor to the http requests
+	$httpProvider.interceptors.push('AuthInterceptor');
 
-    function MainController(Stuff){
-        var vm = this;
-
-        //Get all the stuff
-        Stuff.all()
-
-            //Promise object
-            .success(function (data) {
-
-                // bind the data to a controller variable
-                // this comes from the stuffService
-                vm.data = data;
-            })
-    }
-
-}());
+});
