@@ -1,0 +1,15 @@
+{
+  "name": "MeanWorkflowApp",
+  "homepage": "https://github.com/IvanDobrovolsky/mean-app",
+  "authors": [
+    "IvanDobrovolsky <dobrovolsky94@gmail.com>"
+  ],
+  "description": "Sample app using MEAN Stack and workflow tools",
+  "main": "",
+  "moduleType": [
+    "es6",
+    "globals",
+    "node"
+  ],
+  "license": "MIT"
+}
